@@ -12,8 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.StrokeBorder;
 
 import com.hp.hpl.jena.rdf.model.*;
 import com.hp.hpl.jena.util.FileManager;
@@ -189,6 +187,12 @@ public class OntologyGui{
 	private class DisplayEventHandler implements ActionListener{
 
 		public void actionPerformed(ActionEvent event) {
+			//initiate Output area
+			out.removeAll();
+			out.setLayout(new BoxLayout(out, 1));
+			output.setText(null);
+			out.add(outputScroll);
+			out.updateUI();
 			
 			if(event.getSource()== showOnt ){
 				System.out.println("Show Ontology");//TODO:REMOVE THIS
@@ -200,10 +204,8 @@ public class OntologyGui{
 				System.out.println("Show Sub Classes");//TODO:REMOVE THIS	
 			}
 			else if (event.getSource()== queryResults ){
-				System.out.println("Show Query Results");//TODO:REMOVE THIS
+				SQLSearchBT.doClick();//why reinvent the wheel :)
 			}
-			
-			
 		}
 	}
 	/**
@@ -267,7 +269,9 @@ public class OntologyGui{
 			outputArea.add(out);
 			System.out.println(resultString);//TODO Remove This
 			//Important -free up resources used running the query
+			out.updateUI();
 			ontWindow.revalidate();
+			
 			qe.close();
 		}
 	}
