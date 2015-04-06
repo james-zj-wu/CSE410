@@ -31,7 +31,7 @@ public class OntologyGui{
 		//Build the basic frame
 		JFrame ontWindow = new JFrame("Ontology Window");
 		ontWindow.setLayout(new GridLayout(0,1));
-        ontWindow.setSize(1000,700);
+        ontWindow.setSize(1000,500);
         ontWindow.setLocationRelativeTo(null);
         ontWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	   
@@ -43,39 +43,61 @@ public class OntologyGui{
 		
 		//TODO:Build Options
 		//Organise Search Area for multiple options
-		JPanel ButtonArea = new JPanel(new GridLayout(0,1));
+		JPanel ButtonArea = new JPanel(new FlowLayout());
 		JPanel SQLArea = new JPanel(new GridLayout(1,3));
-		JPanel SearchBoxArea = new JPanel(new GridLayout(1,3));
+		JPanel SearchBoxArea = new JPanel(new FlowLayout());
 		
 		//Set Max Size of Panels
-		ButtonArea.setMaximumSize(new Dimension((searchArea.getMaximumSize().width/3),(searchArea.getMaximumSize().width)));
-		SQLArea.setMaximumSize(new Dimension((searchArea.getMaximumSize().width/3),(searchArea.getMaximumSize().width)));
-		SearchBoxArea.setMaximumSize(new Dimension((searchArea.getMaximumSize().width/3),(searchArea.getMaximumSize().width)));
+		ButtonArea.setMaximumSize(new Dimension((searchArea.getMaximumSize().width/3),(searchArea.getMaximumSize().height)));
+		SQLArea.setMaximumSize(new Dimension((searchArea.getMaximumSize().width/3),(searchArea.getMaximumSize().height)));
+		SearchBoxArea.setMaximumSize(new Dimension((searchArea.getMaximumSize().width/3),(searchArea.getMaximumSize().height)));
 		
 		//Create Interfaces
+		//Buttons for output area
+		JPanel buttonInnerBox = new JPanel(new GridLayout(0,1));
+		
 		JButton showOnt =new JButton("Show Ontology");
 		JButton showEntities = new JButton ("Show Entities");
 		JButton showSubClasses	= new JButton("Show Sub Classes");
-		
-
+		JButton queryResults	= new JButton("Show Query Results");
+		//Search for Entities
+		JPanel searchInnerBox = new JPanel();
+		searchInnerBox.setLayout(new BoxLayout(searchInnerBox, BoxLayout.Y_AXIS));
+		JLabel searchWordLabel = new JLabel("Search Entities");
+		JTextField wordSearch = new JTextField("",8);
+		wordSearch.setMaximumSize(new Dimension(SearchBoxArea.getMaximumSize().width,wordSearch.getMinimumSize().height));
+		JButton searchWord =new JButton("Search");
+		//Search for Entities
+		JPanel SQLInnerBox = new JPanel();
+		SQLInnerBox.setLayout(new BoxLayout(SQLInnerBox, BoxLayout.Y_AXIS));
+		JLabel SQLWordLabel = new JLabel("SPARQL Queries");
+		JTextArea SQLSearch = new JTextArea("SELECT \n WHERE{} \n ORDER BY \n");
+		SQLSearch.setMaximumSize(new Dimension(SQLArea.getMaximumSize().width,SQLSearch.getMinimumSize().height));
+		JButton SQLSearchBT =new JButton("Search");
 		
 		//Add Display Layout Buttons
-		showOnt.setMaximumSize(new Dimension(showOnt.getMinimumSize().width, showOnt.getMinimumSize().height));
-		showEntities.setMaximumSize(new Dimension(showEntities.getMinimumSize().width, showEntities.getMinimumSize().height));
-		showSubClasses.setMaximumSize(new Dimension(showSubClasses.getMinimumSize().width, showSubClasses.getMinimumSize().height));
+		ButtonArea.add(buttonInnerBox);
+		SearchBoxArea.add(searchInnerBox);
 		
-		ButtonArea.add(showOnt);
-		ButtonArea.add(showEntities);
-		ButtonArea.add(showSubClasses);
+		buttonInnerBox.add(showOnt);
+		buttonInnerBox.add(showEntities);
+		buttonInnerBox.add(showSubClasses);
+		buttonInnerBox.add(queryResults);
 		
-		//Add All Divisions
-		searchArea.setBorder(BorderFactory.createEmptyBorder(0,10, 0, 10));
-		searchArea.add(ButtonArea,BorderLayout.LINE_START);
-		searchArea.add(new JSeparator(JSeparator.VERTICAL));
-		searchArea.add(SearchBoxArea,BorderLayout.CENTER);
-		searchArea.add(new JSeparator(JSeparator.VERTICAL));
-		searchArea.add(SQLArea,BorderLayout.LINE_END);
+		searchInnerBox.add(searchWordLabel);
+		searchInnerBox.add(wordSearch);
+		searchInnerBox.add(searchWord);
 		
+		SQLArea.add(SQLInnerBox);
+		SQLInnerBox.add(SQLWordLabel);
+		SQLInnerBox.add(SQLSearch);
+		SQLInnerBox.add(SQLSearchBT);
+		
+		//Add All Divisions		
+		searchArea.add(ButtonArea);
+		searchArea.add(SearchBoxArea);
+		searchArea.add(SQLArea);
+				
 		//Decorate Output Area
 		outputArea.setBorder(BorderFactory.createLineBorder(Color.black));
 		outputArea.setBackground(Color.white);
