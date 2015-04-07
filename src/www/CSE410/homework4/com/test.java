@@ -20,7 +20,7 @@ public class test {
 	 * Return:
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 		OntologyGui ont = new OntologyGui();
 		ont.buildWindow();
 	}
