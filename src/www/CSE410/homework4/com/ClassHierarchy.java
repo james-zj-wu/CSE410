@@ -18,6 +18,12 @@
 
 // Package
 ///////////////
+
+/***
+ * NOTICE
+ * MODIFIED BY: J.E.Scott Howells
+ * CHANGES: Converted from standard PrintStream to a PrintStream that outputs to JTextArea (TextAreaPrintStream)
+ */
 package www.CSE410.homework4.com;
 
 
